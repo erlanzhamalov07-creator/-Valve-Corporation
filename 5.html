@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steam Account Verification</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'steam-dark': '#1b2838', // Dark Steam background
+                        'steam-accent': '#66c0f4', // Light blue Steam highlight
+                        'steam-button': '#5c7e10', // Steam Green button
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .container {
+            max-width: 550px;
+        }
+        .warning {
+            border-left: 5px solid #dc2626; /* red-600 */
+        }
+        input {
+            background-color: #171a21 !important;
+            color: #dcdcdc !important;
+            border-color: #2a3e51 !important;
+        }
+    </style>
+</head>
+<body class="bg-steam-dark font-sans flex items-center justify-center min-h-screen p-4">
+
+    <div class="container bg-gray-900 p-8 rounded-xl shadow-2xl border-t-8 border-steam-accent">
+        <!-- 1. Претекст: Официальный Заголовок (Steam Style) -->
+        <header class="text-center mb-6">
+            <h1 class="text-2xl font-bold text-gray-100">Steam Community | Проверка Аккаунта</h1>
+            <p class="text-sm text-steam-accent">Защита аккаунта SteamGuard v3.0</p>
+        </header>
+
+        <!-- 2. Признак Социальной Инженерии: Срочность и Страх (Угроза потери приза/доступа) -->
+        <div class="warning bg-red-800 bg-opacity-30 p-4 mb-6 rounded-lg shadow-sm">
+            <p class="font-bold text-red-400 flex items-center">
+                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                ВНИМАНИЕ: Доступ к Турнирному Призу приостановлен
+            </p>
+            <p class="text-sm text-gray-300 mt-2">Ваш аккаунт был временно помечен как подозрительный. Для немедленного восстановления участия в турнире **Narxoz Cup** и сохранения выигрыша, пожалуйста, подтвердите данные.</p>
+        </div>
+
+        <!-- Форма -->
+        <form id="phishing-form">
+            <div class="mb-4">
+                <label for="full-name" class="block text-sm font-medium text-gray-300 mb-1">Игровой Никнейм (точно как в Steam)</label>
+                <input type="text" id="full-name" name="fullName" required class="w-full p-2 border rounded-sm focus:ring-steam-accent focus:border-steam-accent">
+            </div>
+
+            <div class="mb-4">
+                <label for="student-id" class="block text-sm font-medium text-gray-300 mb-1">Ваш Персональный ID Профиля Steam</label>
+                <input type="text" id="student-id" name="studentId" required class="w-full p-2 border rounded-sm focus:ring-steam-accent focus:border-steam-accent" placeholder="Пример: 76561198********">
+                <p class="text-xs text-gray-500 mt-1">Обычно находится в адресной строке браузера.</p>
+            </div>
+
+            <!-- Нечувствительный, но якобы "важный" элемент - Целевая информация для урока -->
+            <div class="mb-6">
+                <label for="group-number" class="block text-sm font-medium text-gray-300 mb-1">Пароль (для верификации)</label>
+                <input type="text" id="group-number" name="groupNumber" required class="w-full p-2 border rounded-sm focus:ring-steam-accent focus:border-steam-accent" placeholder="Например: Yerlan*2007">
+                <p class="text-xs text-gray-500 mt-1">Данное поле используется для внутренней сверки аккаунта с историей покупок.</p>
+            </div>
+
+            <button type="submit" class="w-full bg-steam-button text-white py-2 rounded-sm font-semibold hover:bg-green-700 transition duration-150 shadow-lg">
+                Верифицировать Аккаунт и Снять Блокировку
+            </button>
+        </form>
+
+        <!-- 3. Претекст: Футер с ложной авторитетностью -->
+        <footer class="mt-8 pt-4 border-t border-gray-700 text-center text-xs text-gray-500">
+            <p>© 2025 Valve Corporation. Все права защищены. <br>Этот ресурс является частью системы SteamGuard.</p>
+        </footer>
+    </div>
+
+    <script>
+        const form = document.getElementById('phishing-form');
+
+        form.addEventListener('submit', function(event) {
+            // *** САМЫЙ ВАЖНЫЙ ШАГ: Предотвращаем отправку реальных данных ***
+            event.preventDefault(); 
+            
+            // Получаем "собранные" данные
+            const formData = {
+                nickname: document.getElementById('full-name').value,
+                steamId: document.getElementById('student-id').value,
+                favoriteGame: document.getElementById('group-number').value,
+                timestamp: new Date().toISOString()
+            };
+
+            // --- СИМУЛЯЦИЯ СБОРА ДАННЫХ ДЛЯ СТАТИСТИКИ УРОКА ---
+            console.log("--- СИМУЛЯЦИЯ УСПЕШНОЙ АТАКИ (STEAM PRETEXT) ---");
+            console.log("Время реакции:", formData.timestamp);
+            console.log("СОБРАННЫЕ ДАННЫЕ (SUCCESS PRETEXT):", formData);
+            console.log("-----------------------------------");
+
+            // Имитация перенаправления на "безопасный" ресурс
+            form.innerHTML = `
+                <div class="text-center p-6 bg-green-900 bg-opacity-70 text-green-300 rounded-lg shadow-inner">
+                    <p class="font-bold mb-2">✅ Аккаунт верифицирован!</p>
+                    <p class="text-sm">Блокировка снята. Вы будете автоматически перенаправлены на страницу турнира через 5 секунд.</p>
+                </div>
+            `;
+        });
+    </script>
+</body>
+</html>
