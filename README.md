@@ -1,1 +1,1 @@
-# -Valve-Corporation
+# Valve-Corporation
